@@ -1,7 +1,7 @@
-import {parseJevko} from 'parsejevko.js'
+import {parseJevko} from './deps.js'
 
 import {jevkoToValue} from './mod.js'
-import { jevkoToSchema } from 'jevkoschema.js'
+import { sjevkoToSchema } from './deps.js'
 
 const jevkoStr = `
 - [last modified 1 April 2001 by John Doe]
@@ -39,6 +39,6 @@ object
 
 const parsedJevko = parseJevko(jevkoStr)
 
-const schema = jevkoToSchema(parseJevko(schemaStr))
+const schema = sjevkoToSchema(parseJevko(schemaStr))
 
 console.assert(jevkoToValue(parsedJevko, schema).database['select columns'][1] === 'address')
