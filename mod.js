@@ -1,4 +1,4 @@
-export const jevkoToValue = (jevko, schema) => {
+export const cjevkoBySchemaToValue = (jevko, schema) => {
   const {type} = schema
   if (type === 'string') return toString(jevko, schema)
   if (type === 'float64') return toFloat64(jevko, schema)
@@ -49,7 +49,7 @@ const toArray = (jevko, schema) => {
   const {itemSchema} = schema
   for (const {prefix, jevko} of subjevkos) {
     if (prefix.trim() !== '') throw Error('nonempty prefix')
-    ret.push(jevkoToValue(jevko, itemSchema))
+    ret.push(cjevkoBySchemaToValue(jevko, itemSchema))
   }
   return ret
 }
@@ -64,7 +64,7 @@ const toTuple = (jevko, schema) => {
   for (let i = 0; i < itemSchemas.length; ++i) {
     const {prefix, jevko} = subjevkos[i]
     if (prefix.trim() !== '') throw Error('nonempty prefix')
-    ret.push(jevkoToValue(jevko, itemSchemas[i]))
+    ret.push(cjevkoBySchemaToValue(jevko, itemSchemas[i]))
   }
   return ret
 }
@@ -90,7 +90,7 @@ const toObject = (jevko, schema) => {
       if (optional.includes(key) === false) throw Error('key required')
       continue
     }
-    ret[key] = jevkoToValue(keyJevkos[key], props[key])
+    ret[key] = cjevkoBySchemaToValue(keyJevkos[key], props[key])
   }
   return ret
 }
@@ -99,7 +99,7 @@ const toFirstMatch = (jevko, schema) => {
 
   for (const alt of alternatives) {
     try {
-      const x = jevkoToValue(jevko, alt)
+      const x = cjevkoBySchemaToValue(jevko, alt)
       return x
     } catch (e) {
       continue

@@ -1,6 +1,6 @@
 import {parseJevko} from './deps.js'
 
-import {jevkoToValue} from './mod.js'
+import {cjevkoBySchemaToValue} from './mod.js'
 import { sjevkoToSchema } from './deps.js'
 
 const jevkoStr = `
@@ -41,4 +41,4 @@ const parsedJevko = parseJevko(jevkoStr)
 
 const schema = sjevkoToSchema(parseJevko(schemaStr))
 
-console.assert(jevkoToValue(parsedJevko, schema).database['select columns'][1] === 'address')
+console.assert(cjevkoBySchemaToValue(parsedJevko, schema).database['select columns'][1] === 'address')
